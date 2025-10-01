@@ -1,0 +1,31 @@
+# --- Python backend ignores ---
+
+# Virtual environment
+backend/venv/
+
+# Environment variables
+backend/.env
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pytest_cache/
+
+# --- Frontend (Next.js) ignores ---
+
+# Node modules
+frontend/node_modules/
+
+# Next.js build output
+frontend/.next/
+frontend/out/
+
+# --- General ignores ---
+
+# OS / editor files
+.DS_Store
+.vscode/
+.idea/
