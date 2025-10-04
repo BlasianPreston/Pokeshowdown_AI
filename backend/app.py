@@ -16,4 +16,4 @@ model = genai.GenerativeModel('gemini-1.5-flash')
 
 @app.route('/')
 def home():
-    return jsonify({'message': 'Calorie Tracking API is running'})
+    return jsonify({'message': 'Pokemon API is running'})

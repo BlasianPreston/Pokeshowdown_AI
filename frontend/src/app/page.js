@@ -1,7 +1,24 @@
-import React from 'react';
+'use client';
+import { useState } from "react";
+import { useRouter } from 'next/navigation';
 import './styles/home.css'
 
 export default function Home() {
+  const [pokemonName, setPokemonName] = useState('')
+  const [pokemonImage, setPokemonImage] = useState(null)
+  const router = useRouter();
+
+  const handleUpload = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setPokemonImage(URL.createObjectURL(e.target.files[0]));
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    router.push('/pokepage')
+  }
+
   return (
     <div className='page'>
       <div className='home_info'>
@@ -12,9 +29,10 @@ export default function Home() {
         <div className='pokemon_input'>
           <div className='input_div'>
             <h5>Enter Pokemon's Name or Upload Photo of it</h5>
-            <form> 
-              <input type='text' placeholder='Pokemon Name'></input>
-              <input type='file'></input>
+            <form className="pokemon_input_form" onSubmit={handleSubmit}> 
+              <input type='text' placeholder='Pokemon Name' onChange={(e) => setPokemonName(e.target.value)}></input>
+              <input type='file' id="files" onChange={handleUpload} className="hidden"></input>
+              <label for="files" className="upload_label">Add Image Here</label>
               <button type='submit'>Submit</button>
             </form>
           </div>

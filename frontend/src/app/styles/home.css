@@ -33,6 +33,7 @@
 
 .page h5 {
   font-size: 1rem;
+  margin-bottom: 1rem;
 }
 
 .pokemon_input {
@@ -54,11 +55,28 @@
   align-items: center;
 }
 
-.pokemon_input form {
+.pokemon_input_form {
   display: flex;
   flex-direction: column;
   gap: 1rem; 
   width: 300px;
   justify-content: center; 
   align-items: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.upload_label {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: gray;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.3s ease;
 }
