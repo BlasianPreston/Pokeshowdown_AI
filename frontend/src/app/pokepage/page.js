@@ -29,7 +29,7 @@ export default function Pokepage() {
 
 
 
-    if (!pokemon) {
+    if (!pokemon || types == []) {
         return <p>Loading...</p>
     }
 
@@ -41,8 +41,8 @@ export default function Pokepage() {
                 <div>
                     <h2>Types:</h2>
                     <ul>
-                        {types.map((type) => (
-                            <img key={type.id} src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-ix/scarlet-violet/${type.id}.png`} alt={`type-${type.name}`} />
+                        {types.map((type, index) => (
+                            <img key={index} src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-ix/scarlet-violet/${type.id}.png`} alt={`type-${type.name}`} />
                         ))}
                     </ul>
                 </div>

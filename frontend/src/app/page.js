@@ -32,7 +32,7 @@ export default function Home() {
             <form className="pokemon_input_form" onSubmit={handleSubmit}> 
               <input type='text' placeholder='Pokemon Name' onChange={(e) => setPokemonName(e.target.value)}></input>
               <input type='file' id="files" onChange={handleUpload} className="hidden"></input>
-              <label for="files" className="upload_label">Add Image Here</label>
+              <label htmlFor="files" className="upload_label">Add Image Here</label>
               <button type='submit'>Submit</button>
             </form>
           </div>
