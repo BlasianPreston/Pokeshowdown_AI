@@ -6,17 +6,17 @@
   align-items: center;
   justify-content: center;
   overflow-y: auto;
-  max-height: 100vh;
 }
 
 .poke_page {
+  height: 100%;
   align-items: center;
   justify-content: center;
 }
 
 .move-list-container {
-  max-height: 600px;   /* adjust to taste */
-  overflow-y: scroll;  /* adds a scrollbar if content overflows */
+  max-height: 400px;
+  overflow-y: scroll;
   border: 1px solid #ccc;
   padding: 10px;
   border-radius: 10px;
