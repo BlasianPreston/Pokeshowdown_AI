@@ -9,7 +9,6 @@
 }
 
 .poke_page {
-  height: 100%;
   align-items: center;
   justify-content: center;
 }
@@ -33,5 +32,44 @@
 }
 
 .hidden-ability {
-  text-decoration: wavy;
+  font-style: italic;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.possible-moves {
+  font-size: 28px;
+}
+
+.abilities {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  font-size: 18px;
+  justify-content: center;
+}
+
+.image-stats {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.image-stats img {
+  display: block;
+  width: 150px;
+  height: auto;
+}
+
+.types {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.abilities li {
+  font-size: 28px;
 }

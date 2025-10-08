@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState } from "react";
+import StatBars from '../components/StatBars.js';
 import '../styles/pokepage.css'
 
 function capitalizeFirstLetter(val) {
@@ -19,9 +20,19 @@ export default function Pokepage() {
             .then(res => res.json())
             .then(async data => {
                 setPokemon(data);
-                setStats(data.stats);
                 setAbilities(data.abilities);
                 setMoves(data.moves);
+
+                const formattedStats = {
+                    hp: data.stats.find(s => s.stat.name === "hp").base_stat,
+                    attack: data.stats.find(s => s.stat.name === "attack").base_stat,
+                    defense: data.stats.find(s => s.stat.name === "defense").base_stat,
+                    spAtk: data.stats.find(s => s.stat.name === "special-attack").base_stat,
+                    spDef: data.stats.find(s => s.stat.name === "special-defense").base_stat,
+                    speed: data.stats.find(s => s.stat.name === "speed").base_stat,
+                };
+
+                setStats(formattedStats);
 
                 for (const t of data.types) {
                     const res = await fetch(t.type.url);
@@ -49,6 +60,7 @@ export default function Pokepage() {
 
                 const detailedMoves = await Promise.all(movePromises);
                 setMoveData(detailedMoves);
+                console.log(stats)
             });
 
     }
@@ -67,33 +79,36 @@ export default function Pokepage() {
         <div className="page">
             <div className="pokepage">
                 <h1>{capitalizeFirstLetter(pokemon.name)}</h1>
-                <img src={pokemon.sprites.front_default} alt={capitalizeFirstLetter(pokemon.name)}></img>
+                <div className="image-stats">
+                    <img src={pokemon.sprites.front_default} alt={capitalizeFirstLetter(pokemon.name)}></img>
+                    <StatBars stats={stats} />
+                </div>
                 <div>
                     <h2>Types:</h2>
-                    <ul>
+                    <div className="types">
                         {types.map((type, index) => (
                             <img key={index} src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-ix/scarlet-violet/${type.id}.png`} alt={`type-${type.name}`} />
                         ))}
-                    </ul>
+                    </div>
                 </div>
                 <div>
                     <h2>Abilities:</h2>
-                    <ul>
+                    <ul className="abilities">
                         {abilities.map((ability, index) => (
-                            <li key={index} className={ability.is_hidden ? "hidden-ability" : null}>{ability.ability.name}</li>
+                            <li key={index} className={ability.is_hidden ? "hidden-ability" : null}>{capitalizeFirstLetter(ability.ability.name)}</li>
                         ))}
                     </ul>
                 </div>
                 <div>
-                    <h5>Possible Moves:</h5>
+                    <h5 className="possible-moves">Possible Moves:</h5>
+                    <div className="table-header">
+                        <h5>Name</h5>
+                        <h5>Type</h5>
+                        <h5>Power</h5>
+                        <h5>Accuracy</h5>
+                        <h5>Level Learned</h5>
+                    </div>
                     <ul>
-                        <li>
-                            <h5>Name</h5>
-                            <h5>Type</h5>
-                            <h5>Power</h5>
-                            <h5>Accuracy</h5>
-                            <h5>Level Learned</h5>
-                        </li>
                         <div className="move-list-container">
                             {moveData.map((move, index) => {
                                 return (
