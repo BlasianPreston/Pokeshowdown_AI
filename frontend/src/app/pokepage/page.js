@@ -13,6 +13,7 @@ export default function Pokepage() {
     const [stats, setStats] = useState([]);
     const [abilities, setAbilities] = useState([])
     const [moves, setMoves] = useState([]);
+    const [moveSets, setMoveSets] = useState([]);
     const [moveData, setMoveData] = useState([]);
 
     async function fetchPokemon() {
@@ -22,6 +23,7 @@ export default function Pokepage() {
                 setPokemon(data);
                 setAbilities(data.abilities);
                 setMoves(data.moves);
+                setMoveSets([{ "move1": "Surf", "move2": "Dark Pulse", "move3": "Ice Beam", "move4": "Water Shuriken", "item": "Choice Specs" }])
 
                 const formattedStats = {
                     hp: data.stats.find(s => s.stat.name === "hp").base_stat,
@@ -123,6 +125,29 @@ export default function Pokepage() {
                             })}
                         </div>
                     </ul>
+                </div>
+                <div>
+                    <h5 className="competitive-movesets">Competitive Movesets: </h5>
+                    <div className="movesets">
+                        <ul className="movesets-table">
+                            <li className="moveset-header">
+                                <h4>Move 1:</h4>
+                                <h4>Move 2:</h4>
+                                <h4>Move 3:</h4>
+                                <h4>Move 4:</h4>
+                            </li>
+                            {moveSets.map((move, index) => {
+                                return (
+                                    <li key={index} className="moveset-list">
+                                        <h5>{move.move1}</h5>
+                                        <h5>{move.move2}</h5>
+                                        <h5>{move.move3}</h5>
+                                        <h5>{move.move4}</h5>
+                                    </li>
+                                )
+                            })}
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

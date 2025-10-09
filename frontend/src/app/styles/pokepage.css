@@ -26,6 +26,11 @@
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
+.moveset-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
 .move-list img {
   width: 100px;
   height: auto;
@@ -38,6 +43,11 @@
 .table-header {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.moveset-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 .possible-moves {
@@ -72,4 +82,28 @@
 
 .abilities li {
   font-size: 28px;
+}
+
+.movesets {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.25rem;
+}
+
+.movesets-table {
+  width: auto;
+}
+
+.movesets h4 {
+  font-size: 20px;
+}
+
+.movesets h5 {
+  font-size: 16px;
+}
+
+.competitive-movesets {
+  font-size: 28px;
+  margin-top: 0.5rem;
 }
