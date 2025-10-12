@@ -8,62 +8,73 @@ function capitalizeFirstLetter(val) {
 }
 
 export default function Pokepage() {
+    const [pokemonName, setPokemonName] = useState('');
     const [pokemon, setPokemon] = useState(null);
     const [types, setTypes] = useState([]);
     const [stats, setStats] = useState([]);
     const [abilities, setAbilities] = useState([])
-    const [moves, setMoves] = useState([]);
     const [moveSets, setMoveSets] = useState([]);
     const [moveData, setMoveData] = useState([]);
+    const [error, SetError] = useState('');
 
     async function fetchPokemon() {
-        fetch("https://pokeapi.co/api/v2/pokemon/greninja")
-            .then(res => res.json())
-            .then(async data => {
-                setPokemon(data);
-                setAbilities(data.abilities);
-                setMoves(data.moves);
-                setMoveSets([{ "move1": "Surf", "move2": "Dark Pulse", "move3": "Ice Beam", "move4": "Water Shuriken", "item": "Choice Specs" }])
+        const response = await fetch('/api/pokepage', {
+            method: 'GET',
+        });
+        const data = await response.json();
+        setPokemonName(data.pokemon);
+        if (response.ok) {
+            fetch("https://pokeapi.co/api/v2/pokemon/greninja")
+                .then(res => res.json())
+                .then(async data => {
+                    setPokemon(data);
+                    setAbilities(data.abilities);
+                    setMoveSets([{ "move1": "Surf", "move2": "Dark Pulse", "move3": "Ice Beam", "move4": "Water Shuriken", "item": "Choice Specs" }])
 
-                const formattedStats = {
-                    hp: data.stats.find(s => s.stat.name === "hp").base_stat,
-                    attack: data.stats.find(s => s.stat.name === "attack").base_stat,
-                    defense: data.stats.find(s => s.stat.name === "defense").base_stat,
-                    spAtk: data.stats.find(s => s.stat.name === "special-attack").base_stat,
-                    spDef: data.stats.find(s => s.stat.name === "special-defense").base_stat,
-                    speed: data.stats.find(s => s.stat.name === "speed").base_stat,
-                };
-
-                setStats(formattedStats);
-
-                for (const t of data.types) {
-                    const res = await fetch(t.type.url);
-                    const typeData = await res.json();
-                    setTypes(prev => [...prev, typeData]);
-                }
-
-                const movePromises = data.moves.map(async (entry) => {
-                    const moveUrl = entry.move.url;
-                    const res = await fetch(moveUrl);
-                    const moveDetails = await res.json();
-
-                    // Extract type id safely
-                    const typeUrl = moveDetails.type.url;
-                    const typeId = typeUrl.split("/").filter(Boolean).pop();
-
-                    return {
-                        name: moveDetails.name,
-                        power: moveDetails.power,
-                        accuracy: moveDetails.accuracy,
-                        type: { name: moveDetails.type.name, id: typeId },
-                        levelLearned: entry.version_group_details.at(-1)?.level_learned_at ?? "—",
+                    const formattedStats = {
+                        hp: data.stats.find(s => s.stat.name === "hp").base_stat,
+                        attack: data.stats.find(s => s.stat.name === "attack").base_stat,
+                        defense: data.stats.find(s => s.stat.name === "defense").base_stat,
+                        spAtk: data.stats.find(s => s.stat.name === "special-attack").base_stat,
+                        spDef: data.stats.find(s => s.stat.name === "special-defense").base_stat,
+                        speed: data.stats.find(s => s.stat.name === "speed").base_stat,
                     };
-                });
 
-                const detailedMoves = await Promise.all(movePromises);
-                setMoveData(detailedMoves);
-                console.log(stats)
-            });
+                    setStats(formattedStats);
+
+                    for (const t of data.types) {
+                        const res = await fetch(t.type.url);
+                        const typeData = await res.json();
+                        setTypes(prev => [...prev, typeData]);
+                    }
+
+                    const movePromises = data.moves.map(async (entry) => {
+                        const moveUrl = entry.move.url;
+                        const res = await fetch(moveUrl);
+                        const moveDetails = await res.json();
+
+                        // Extract type id safely
+                        const typeUrl = moveDetails.type.url;
+                        const typeId = typeUrl.split("/").filter(Boolean).pop();
+
+                        return {
+                            name: moveDetails.name,
+                            power: moveDetails.power,
+                            accuracy: moveDetails.accuracy,
+                            type: { name: moveDetails.type.name, id: typeId },
+                            levelLearned: entry.version_group_details.at(-1)?.level_learned_at ?? "—",
+                        };
+                    });
+
+                    const detailedMoves = await Promise.all(movePromises);
+                    setMoveData(detailedMoves);
+                    console.log(stats)
+                });
+        }
+        else {
+            SetError(data.statusText);
+        }
+
 
     }
 
@@ -73,8 +84,11 @@ export default function Pokepage() {
 
 
 
+    if (error) {
+        return <div className="page"><p className="error">Pokemon not stored in session, please re-enter information on previous page</p></div>
+    }
     if (!pokemon || types == []) {
-        return <p>Loading...</p>
+        return <div className="page"><p className="loading">Loading...</p></div>
     }
 
     return (

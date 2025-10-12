@@ -80,3 +80,7 @@
   text-align: center;
   transition: background 0.3s ease;
 }
+
+.error {
+  color: red;
+}

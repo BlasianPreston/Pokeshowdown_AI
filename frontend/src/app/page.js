@@ -6,17 +6,33 @@ import './styles/home.css'
 export default function Home() {
   const [pokemonName, setPokemonName] = useState('')
   const [pokemonImage, setPokemonImage] = useState(null)
+  const [error, setError] = useState('')
   const router = useRouter();
 
   const handleUpload = (e) => {
     if (e.target.files && e.target.files[0]) {
-      setPokemonImage(URL.createObjectURL(e.target.files[0]));
+      setPokemonImage(e.target.files[0]);
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    router.push('/pokepage')
+
+    const response = await fetch('/api/home', {
+      method: 'POST',
+      body: JSON.stringify({ name : pokemonName, image: pokemonImage }),
+    });
+
+    if (!response.ok) {
+      // Handle non-200 status codes
+      console.error("Error:", response.statusText);
+      setError(response.statusText);
+      return;
+    }
+    else {
+      router.push('/pokepage')
+    }
+
   }
 
   return (
@@ -35,6 +51,7 @@ export default function Home() {
               <label htmlFor="files" className="upload_label">Add Image Here</label>
               <button type='submit'>Submit</button>
             </form>
+            {error !== '' && <h5 className="error">{error}</h5>}
           </div>
         </div>
       </div>

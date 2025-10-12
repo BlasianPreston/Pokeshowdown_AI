@@ -107,3 +107,12 @@
   font-size: 28px;
   margin-top: 0.5rem;
 }
+
+.error {
+  font-size: 30px;
+  color: red;
+}
+
+.loading {
+  font-size: 30px;
+}
