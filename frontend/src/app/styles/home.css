@@ -16,6 +16,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+  color: white;
 }
 
 .page h1 {
@@ -29,11 +30,13 @@
 .page h4 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
+  color: white;
 }
 
 .page h5 {
   font-size: 1rem;
   margin-bottom: 1rem;
+  color: white;
 }
 
 .pokemon_input {

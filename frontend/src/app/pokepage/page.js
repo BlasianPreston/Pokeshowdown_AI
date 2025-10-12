@@ -24,7 +24,9 @@ export default function Pokepage() {
         const data = await response.json();
         setPokemonName(data.pokemon);
         if (response.ok) {
-            fetch("https://pokeapi.co/api/v2/pokemon/greninja")
+            const base_url = "https://pokeapi.co/api/v2/pokemon/"
+            const url = base_url + data.pokemon.toLowerCase() + "/"
+            fetch(url)
                 .then(res => res.json())
                 .then(async data => {
                     setPokemon(data);
@@ -87,7 +89,7 @@ export default function Pokepage() {
     if (error) {
         return <div className="page"><p className="error">Pokemon not stored in session, please re-enter information on previous page</p></div>
     }
-    if (!pokemon || types == []) {
+    if (!pokemon || types.length === 0) {
         return <div className="page"><p className="loading">Loading...</p></div>
     }
 
