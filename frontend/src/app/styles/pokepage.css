@@ -1,11 +1,12 @@
 .page {
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   background-color: #424242;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   overflow-y: auto;
+  padding: 24px 16px 16px;
 }
 
 .poke_page {
@@ -13,8 +14,15 @@
   justify-content: center;
 }
 
+/* Ensure the main content block has breathing room from the top */
+.pokepage {
+  width: 100%;
+  max-width: 1100px;
+  margin: 16px auto 0;
+}
+
 .move-list-container {
-  max-height: 400px;
+  max-height: 50vh;
   overflow-y: scroll;
   border: 1px solid #ccc;
   padding: 10px;
@@ -23,16 +31,23 @@
 
 .move-list {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1.2fr 0.9fr 0.8fr 0.8fr 0.8fr;
+  gap: 8px;
+}
+
+/* Increase text size inside moves rows */
+.move-list h5 {
+  font-size: clamp(14px, 2.6vw, 20px);
 }
 
 .moveset-list {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
 }
 
 .move-list img {
-  width: 100px;
+  width: clamp(64px, 8vw, 96px);
   height: auto;
 }
 
@@ -42,7 +57,13 @@
 
 .table-header {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1.2fr 0.9fr 0.8fr 0.8fr 0.8fr;
+  gap: 8px;
+}
+
+/* Larger header labels for the moves table */
+.table-header h5 {
+  font-size: clamp(14px, 2.8vw, 22px);
 }
 
 .moveset-header {
@@ -64,13 +85,15 @@
 
 .image-stats {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
 }
 
 .image-stats img {
   display: block;
-  width: 150px;
+  width: clamp(120px, 18vw, 180px);
   height: auto;
 }
 
@@ -78,10 +101,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
 .abilities li {
-  font-size: 28px;
+  font-size: clamp(16px, 2.2vw, 24px);
 }
 
 .movesets {
@@ -92,27 +117,50 @@
 }
 
 .movesets-table {
-  width: auto;
+  width: 100%;
+  max-width: 900px;
 }
 
 .movesets h4 {
-  font-size: 20px;
+  font-size: clamp(16px, 2.5vw, 20px);
 }
 
 .movesets h5 {
-  font-size: 16px;
+  font-size: clamp(14px, 2.2vw, 16px);
 }
 
 .competitive-movesets {
-  font-size: 28px;
+  font-size: clamp(18px, 3vw, 28px);
   margin-top: 0.5rem;
 }
 
 .error {
-  font-size: 30px;
+  font-size: clamp(18px, 3vw, 28px);
   color: red;
 }
 
 .loading {
-  font-size: 30px;
+  font-size: clamp(18px, 3vw, 28px);
+}
+
+/* Responsive tweaks */
+@media (max-width: 1024px) {
+  .table-header {
+    grid-template-columns: 1fr 0.8fr 0.8fr 0.8fr 0.8fr;
+  }
+  .move-list {
+    grid-template-columns: 1fr 0.8fr 0.8fr 0.8fr 0.8fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .move-list img {
+    width: 56px;
+  }
+  .move-list-container {
+    max-height: 45vh;
+  }
+  .table-header {
+    font-size: 12px;
+  }
 }

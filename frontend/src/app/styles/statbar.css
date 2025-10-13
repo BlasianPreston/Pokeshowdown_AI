@@ -4,7 +4,7 @@
   font-family: sans-serif;
   padding: 10px;
   border-radius: 8px;
-  width: 300px;
+  width: clamp(240px, 40vw, 360px);
 }
 
 .stat-row {
@@ -20,14 +20,14 @@
 }
 
 .stat-value {
-  width: 30px;
+  width: 40px;
   text-align: right;
   color: #fff;
 }
 
 .stat-bar {
   flex: 1;
-  height: 10px;
+  height: 12px;
   background-color: #333;
   border-radius: 4px;
   overflow: hidden;

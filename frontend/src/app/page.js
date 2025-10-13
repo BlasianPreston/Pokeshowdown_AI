@@ -6,12 +6,14 @@ import './styles/home.css'
 export default function Home() {
   const [pokemonName, setPokemonName] = useState('')
   const [pokemonImage, setPokemonImage] = useState(null)
+  const [pokemonImageType, setPokemonImageType] = useState('')
   const [error, setError] = useState('')
   const router = useRouter();
 
   const handleUpload = (e) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
+      setPokemonImageType(file.type);
       const reader = new FileReader();
 
       reader.onload = (event) => {
@@ -25,14 +27,12 @@ export default function Home() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(pokemonName + " frontend");
-
     const response = await fetch('/api/home', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ name : pokemonName, image: pokemonImage }),
+      body: JSON.stringify({ name : pokemonName, image: pokemonImage, mime_type: pokemonImageType }),
     });
 
     if (!response.ok) {
