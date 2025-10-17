@@ -23,6 +23,7 @@ export default function Pokepage() {
         });
         const data = await response.json();
         setPokemonName(data.pokemon);
+        setMoveSets(data.movesets)
         if (response.ok) {
             const base_url = "https://pokeapi.co/api/v2/pokemon/"
             const url = base_url + data.pokemon.toLowerCase() + "/"
@@ -31,7 +32,6 @@ export default function Pokepage() {
                 .then(async data => {
                     setPokemon(data);
                     setAbilities(data.abilities);
-                    setMoveSets([{ "move1": "Surf", "move2": "Dark Pulse", "move3": "Ice Beam", "move4": "Water Shuriken", "item": "Choice Specs" }])
 
                     const formattedStats = {
                         hp: data.stats.find(s => s.stat.name === "hp").base_stat,
@@ -152,15 +152,17 @@ export default function Pokepage() {
                                 <h4>Move 3:</h4>
                                 <h4>Move 4:</h4>
                             </li>
-                            {moveSets.map((move, index) => {
-                                return (
-                                    <li key={index} className="moveset-list">
-                                        <h5>{move.move1}</h5>
-                                        <h5>{move.move2}</h5>
-                                        <h5>{move.move3}</h5>
-                                        <h5>{move.move4}</h5>
-                                    </li>
-                                )
+                            {moveSets.map((moveset, index) => {
+                                if (moveset.length === 4) {
+                                    return (
+                                        <li key={index} className="moveset-list">
+                                            <h5>{moveset[0]}</h5>
+                                            <h5>{moveset[1]}</h5>
+                                            <h5>{moveset[2]}</h5>
+                                            <h5>{moveset[3]}</h5>
+                                        </li>
+                                    )
+                                }
                             })}
                         </ul>
                     </div>
