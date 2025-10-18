@@ -143,26 +143,20 @@ export default function Pokepage() {
                     </ul>
                 </div>
                 <div>
-                    <h5 className="competitive-movesets">Competitive Movesets: </h5>
+                    <h5 className="competitive-movesets">Competitive Move Usage:</h5>
                     <div className="movesets">
                         <ul className="movesets-table">
                             <li className="moveset-header">
-                                <h4>Move 1:</h4>
-                                <h4>Move 2:</h4>
-                                <h4>Move 3:</h4>
-                                <h4>Move 4:</h4>
+                                <h4>Move</h4>
+                                <h4>Times Used This Month</h4>
                             </li>
-                            {moveSets.map((moveset, index) => {
-                                if (moveset.length === 4) {
-                                    return (
-                                        <li key={index} className="moveset-list">
-                                            <h5>{moveset[0]}</h5>
-                                            <h5>{moveset[1]}</h5>
-                                            <h5>{moveset[2]}</h5>
-                                            <h5>{moveset[3]}</h5>
-                                        </li>
-                                    )
-                                }
+                            {moveSets.map((move_and_usage, index) => {
+                                return (
+                                    <li key={index} className="moveset-list">
+                                        <h5>{move_and_usage[0]}</h5>
+                                        <h5>{move_and_usage[1]}</h5>
+                                    </li>
+                                )
                             })}
                         </ul>
                     </div>

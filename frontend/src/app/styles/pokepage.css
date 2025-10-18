@@ -14,11 +14,11 @@
   justify-content: center;
 }
 
-/* Ensure the main content block has breathing room from the top */
 .pokepage {
   width: 100%;
   max-width: 1100px;
   margin: 16px auto 0;
+  margin-bottom: 3rem;
 }
 
 .move-list-container {
@@ -35,7 +35,6 @@
   gap: 8px;
 }
 
-/* Increase text size inside moves rows */
 .move-list h5 {
   font-size: clamp(14px, 2.6vw, 20px);
 }
@@ -61,14 +60,13 @@
   gap: 8px;
 }
 
-/* Larger header labels for the moves table */
 .table-header h5 {
   font-size: clamp(14px, 2.8vw, 22px);
 }
 
 .moveset-header {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
 }
 
 .possible-moves {
@@ -143,7 +141,6 @@
   font-size: clamp(18px, 3vw, 28px);
 }
 
-/* Responsive tweaks */
 @media (max-width: 1024px) {
   .table-header {
     grid-template-columns: 1fr 0.8fr 0.8fr 0.8fr 0.8fr;

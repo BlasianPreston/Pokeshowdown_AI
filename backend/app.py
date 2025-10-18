@@ -1,9 +1,9 @@
 from flask import Flask, request, jsonify, session
 from flask_cors import CORS
 from dotenv import load_dotenv
-from bs4 import BeautifulSoup
 from google import genai
 from google.genai import types
+import smog_usage_stats.IndividualLookup as smogI
 import requests
 import base64
 import re
@@ -78,6 +78,10 @@ def analyze_pokemon_image(image_data, mime_type):
         print(f"Error analyzing image: {e}")
         return {"pokemon": "N/A"}
 
+def get_movesets(pokemon_name):
+    # Redo but with https://github.com/pkmn/smogon/blob/main/data/sets/gen9.json API
+
+
 @app.route('/')
 def home():
     return jsonify({'message': 'Backend is Running'}), 200
@@ -117,9 +121,9 @@ def store_pokemon():
 def get_pokemon():
     name = session['pokemon']
     if name:
-        return jsonify({'message': 'Pokemon Successfully Returned', 'pokemon': name}), 200
+        return jsonify({'message': 'Pokemon Successfully Returned', 'pokemon': name, 'movesets': get_movesets(name)}), 200
     else:
-        return jsonify({'message': 'Pokemon Not Stored in Session', 'pokemon': 'N/A'}), 401
+        return jsonify({'message': 'Pokemon Not Stored in Session', 'pokemon': 'N/A', 'movesets': []}), 401
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8000)
