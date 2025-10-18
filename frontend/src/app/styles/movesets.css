@@ -1,0 +1,66 @@
+.movesets-container {
+  color: white;
+  min-height: 100vh;
+  padding: 2rem;
+  font-family: "Inter", Arial, sans-serif;
+}
+
+.title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #444;
+  padding-bottom: 0.5rem;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.moveset-card {
+  background-color: #2a2a2a;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.moveset-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.set-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #78c0ff;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #3d3d3d;
+  padding-bottom: 0.4rem;
+}
+
+.moves-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.move-slot {
+  font-size: 1rem;
+  background: #333;
+  border-radius: 6px;
+  padding: 0.5rem 0.8rem;
+  transition: background 0.2s ease;
+}
+
+.move-slot:hover {
+  background: #3f3f3f;
+}
+
+.move-number {
+  font-weight: 600;
+  color: #9ed0ff;
+  margin-right: 0.5rem;
+}

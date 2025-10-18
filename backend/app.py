@@ -3,7 +3,6 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
-import smog_usage_stats.IndividualLookup as smogI
 import requests
 import base64
 import re
@@ -79,7 +78,37 @@ def analyze_pokemon_image(image_data, mime_type):
         return {"pokemon": "N/A"}
 
 def get_movesets(pokemon_name):
-    # Redo but with https://github.com/pkmn/smogon/blob/main/data/sets/gen9.json API
+    gen9_url = "https://raw.githubusercontent.com/pkmn/smogon/main/data/sets/gen9.json"
+    response_gen9 = requests.get(gen9_url)
+    gen8_url = "https://raw.githubusercontent.com/pkmn/smogon/main/data/sets/gen8.json"
+    response_gen8 = requests.get(gen8_url)
+    gen7_url =  "https://raw.githubusercontent.com/pkmn/smogon/main/data/sets/gen7.json"
+    response_gen7 = requests.get(gen7_url)
+    
+    data_gen9 = response_gen9.json()
+    data_gen8 = response_gen8.json()
+    data_gen7 = response_gen7.json()
+
+    name = pokemon_name.capitalize()
+    pokemon_info = {}
+    if name in data_gen9.keys():
+        pokemon_info = data_gen9[name]
+    elif name in data_gen8.keys():
+        pokemon_info = data_gen8[name]
+    elif name in data_gen7.keys():
+        pokemon_info = data_gen7[name]
+    movesets = []
+    for tier in pokemon_info.keys():
+        info_for_tier = pokemon_info[tier]
+        for pokemon_set in info_for_tier.keys():
+            moveset = info_for_tier[pokemon_set]["moves"]
+            for index, move in enumerate(moveset):
+                if isinstance(move, list):
+                    new_move = move[0] + "/" + move[1]
+                    moveset[index] = new_move
+            moveset_dict = {'set': tier + "_" + pokemon_set, 'moves': moveset}
+        movesets.append(moveset_dict)
+    return movesets
 
 
 @app.route('/')

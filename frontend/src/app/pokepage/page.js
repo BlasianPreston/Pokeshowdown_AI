@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from "react";
 import StatBars from '../components/StatBars.js';
+import Movesets from '../components/MoveSets.js';
 import '../styles/pokepage.css'
 
 function capitalizeFirstLetter(val) {
@@ -143,23 +144,7 @@ export default function Pokepage() {
                     </ul>
                 </div>
                 <div>
-                    <h5 className="competitive-movesets">Competitive Move Usage:</h5>
-                    <div className="movesets">
-                        <ul className="movesets-table">
-                            <li className="moveset-header">
-                                <h4>Move</h4>
-                                <h4>Times Used This Month</h4>
-                            </li>
-                            {moveSets.map((move_and_usage, index) => {
-                                return (
-                                    <li key={index} className="moveset-list">
-                                        <h5>{move_and_usage[0]}</h5>
-                                        <h5>{move_and_usage[1]}</h5>
-                                    </li>
-                                )
-                            })}
-                        </ul>
-                    </div>
+                    <Movesets data={moveSets}/>
                 </div>
             </div>
         </div>
